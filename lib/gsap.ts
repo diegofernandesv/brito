@@ -9,7 +9,6 @@ import { useGSAP } from "@gsap/react";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger, ScrollSmoother, ScrollToPlugin, SplitText, useGSAP);
-  (window as any).__gsap = gsap; // TEMP-DEBUG
 }
 
 export { gsap, ScrollTrigger, ScrollSmoother, ScrollToPlugin, SplitText, useGSAP };
