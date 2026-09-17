@@ -818,19 +818,24 @@ body.is-loading .header {
   aspect-ratio: var(--ratio);
 }
 
-/* Campaigns sit off the grid line: staggered drops, widths and sides. */
+/* Campaigns sit off the grid line: staggered drops and widths, but the frames
+   hug the middle so the pairs stay close together horizontally. */
 @media (min-width: 901px) {
   #campanas .grid {
+    column-gap: 16px;
     row-gap: 0;
+  }
+  #campanas .card:nth-child(odd) .card__media {
+    margin-left: auto;
   }
   #campanas .card:nth-child(4n + 1) {
     width: 86%;
-    justify-self: start;
+    justify-self: end;
     margin-top: clamp(16px, 4vh, 48px);
   }
   #campanas .card:nth-child(4n + 2) {
     width: 74%;
-    justify-self: end;
+    justify-self: start;
     margin-top: clamp(90px, 22vh, 260px);
   }
   #campanas .card:nth-child(4n + 3) {
