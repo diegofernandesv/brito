@@ -62,8 +62,20 @@ export default function Lightbox() {
           Cerrar
         </button>
       </div>
-      <div className="lightbox__player" onClick={(e) => e.stopPropagation()}>
-        <video src={work.video} autoPlay controls playsInline />
+      <div
+        className={`lightbox__player${work.youtube ? " lightbox__player--embed" : ""}`}
+        onClick={(e) => e.stopPropagation()}
+      >
+        {work.youtube ? (
+          <iframe
+            src={`https://www.youtube-nocookie.com/embed/${work.youtube}?autoplay=1&rel=0&modestbranding=1&playsinline=1`}
+            title={work.title}
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+            allowFullScreen
+          />
+        ) : (
+          <video src={work.video} poster={work.poster} autoPlay controls playsInline />
+        )}
       </div>
     </div>
   );

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { ScrollSmoother, ScrollTrigger, useGSAP } from "@/lib/gsap";
-import { campaigns, videoclips } from "@/lib/content";
+import { campaigns, documentaries, videoclips } from "@/lib/content";
 import Loader from "./Loader";
 import Header from "./Header";
 import Hero from "./Hero";
@@ -53,6 +53,7 @@ export default function Site() {
             <Hero ready={ready} />
             <RecentWorks />
             <GridSection id="campanas" title="Contenido y campañas" works={campaigns} />
+            <GridSection id="documentales" title="Documentales" works={documentaries} />
             <GridSection id="videoclips" title="VideoClips" works={videoclips} />
             <Photos />
             <Skills />

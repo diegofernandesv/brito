@@ -7,6 +7,7 @@ import { contact } from "@/lib/content";
 const links = [
   { id: "trabajos", label: "Trabajos" },
   { id: "campanas", label: "Contenido y campañas" },
+  { id: "documentales", label: "Documentales" },
   { id: "videoclips", label: "VideoClips" },
   { id: "fotografias", label: "Fotografías" },
   { id: "habilidades", label: "Habilidades" },
