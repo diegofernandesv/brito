@@ -30,9 +30,25 @@ export default function Footer() {
 
   return (
     <footer className="footer" id="contacto" ref={root}>
-      <a className="footer__cta" href={contact.instagram} target="_blank" rel="noreferrer" data-cursor="Hola">
+      <a
+        className="footer__cta"
+        href={contact.instagram}
+        target="_blank"
+        rel="noreferrer"
+        data-cursor="Instagram"
+        aria-label={`Trabajemos juntos: escríbeme por Instagram, ${contact.handle}`}
+      >
         <span className="footer__big">Trabajemos Juntos</span>
         <span className="footer__big">{contact.handle}</span>
+        <span className="footer__ig">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" strokeWidth="1.6" />
+            <circle cx="12" cy="12" r="4.2" stroke="currentColor" strokeWidth="1.6" />
+            <circle cx="17.4" cy="6.6" r="1.2" fill="currentColor" />
+          </svg>
+          Escríbeme por Instagram
+          <span aria-hidden="true">↗</span>
+        </span>
       </a>
       <div className="footer__links">
         <a href={`mailto:${contact.email}`} className="link">
