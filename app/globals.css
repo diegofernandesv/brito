@@ -441,11 +441,6 @@ body.is-loading .header {
   min-height: 42px;
 }
 
-.section__count {
-  font-size: 14px;
-  color: #777;
-}
-
 /* ---------- Hero ---------- */
 
 /* The whole hero — photo, heading and quote — fits in the first screen:

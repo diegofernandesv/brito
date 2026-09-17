@@ -76,7 +76,6 @@ export default function Photos() {
     <section className="section photos" id="fotografias" ref={root}>
       <div className="section__head">
         <h2 className="t-heading">Fotografías</h2>
-        <span className="section__count">({pad(photos.length)})</span>
       </div>
 
       {photoCategories.map((category) => (

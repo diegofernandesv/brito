@@ -56,7 +56,6 @@ export default function GridSection({ id, title, works }: { id: string; title: s
     <section className="section" id={id} ref={root}>
       <div className="section__head">
         <h2 className="t-heading">{title}</h2>
-        <span className="section__count">({String(works.length).padStart(2, "0")})</span>
       </div>
       <div className="grid">
         {works.map((w, i) => (
