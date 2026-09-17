@@ -600,6 +600,7 @@ body.is-loading .header {
 
 .recent__track {
   display: flex;
+  align-items: center;
   gap: clamp(24px, 3vw, 48px);
   width: max-content;
   padding: 0 var(--gutter);
@@ -608,14 +609,31 @@ body.is-loading .header {
 }
 
 .recent__card {
+  --h: 1;
   flex: 0 0 auto;
-  width: calc(var(--frame-h) * var(--ratio));
+  width: calc(var(--frame-h) * var(--h) * var(--ratio));
   counter-increment: work;
   container-type: inline-size;
 }
 
 .recent__card .card__media {
-  height: var(--frame-h);
+  height: calc(var(--frame-h) * var(--h));
+}
+
+/* Deliberately off the baseline: sizes and offsets alternate down the row. */
+@media (min-width: 901px) {
+  .recent__card:nth-child(3n + 1) {
+    --h: 1;
+    transform: translateY(-4%);
+  }
+  .recent__card:nth-child(3n + 2) {
+    --h: 0.82;
+    transform: translateY(9%);
+  }
+  .recent__card:nth-child(3n + 3) {
+    --h: 0.92;
+    transform: translateY(-1%);
+  }
 }
 
 /* Wider than the frame so the horizontal pan never shows an edge. */
@@ -859,8 +877,7 @@ body.is-loading .header {
   height: 100%;
   object-fit: cover;
   display: block;
-  filter: grayscale(1) contrast(1.05);
-  transition: filter 0.8s var(--ease-out);
+  transition: transform 1.2s var(--ease-out);
 }
 
 .photo__flash {
@@ -871,26 +888,16 @@ body.is-loading .header {
   pointer-events: none;
 }
 
-/* Contact-sheet crop marks hugging two corners of each frame. */
+/* Contact-sheet crop marks hugging two top corners of each frame. */
 .photo {
   position: relative;
-  container-type: inline-size;
-}
-
-/* Narrow frames stack their caption instead of squeezing two columns. */
-@container (max-width: 320px) {
-  .photo__caption {
-    grid-template-columns: 1fr;
-  }
-  .photo__place {
-    text-align: left;
-  }
 }
 
 .photo::before,
 .photo::after {
   content: "";
   position: absolute;
+  top: -8px;
   width: 14px;
   height: 14px;
   border: 0 solid var(--fg);
@@ -899,48 +906,15 @@ body.is-loading .header {
 }
 
 .photo::before {
-  top: -8px;
   left: -8px;
   border-top-width: 1px;
   border-left-width: 1px;
 }
 
 .photo::after {
-  top: -8px;
   right: -8px;
   border-top-width: 1px;
   border-right-width: 1px;
-}
-
-.photo__caption {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  column-gap: 16px;
-  row-gap: 2px;
-  padding-top: 14px;
-  overflow: hidden;
-  font-size: 14px;
-  letter-spacing: -0.02em;
-}
-
-.photo__title b {
-  font-weight: 500;
-  color: #999;
-  margin-right: 6px;
-  font-variant-numeric: tabular-nums;
-}
-
-.photo__place {
-  text-align: right;
-  color: #777;
-}
-
-.photo__exif {
-  grid-column: 1 / -1;
-  font-size: 12px;
-  color: #aaa;
-  font-variant-numeric: tabular-nums;
-  letter-spacing: 0.02em;
 }
 
 @media (hover: hover) {
@@ -948,30 +922,11 @@ body.is-loading .header {
     transition: opacity 0.6s var(--ease-out);
   }
   .photo:hover .photo__frame img {
-    filter: grayscale(0) contrast(1);
+    transform: scale(1.04);
   }
   .photos__grid:has(.photo:hover) .photo:not(:hover) {
-    opacity: 0.35;
+    opacity: 0.45;
   }
-}
-
-@media (hover: none) {
-  .photo__frame img {
-    filter: none;
-  }
-}
-
-.photos__statement {
-  grid-column: 2 / span 10;
-  padding-block: clamp(24px, 6vh, 64px);
-}
-
-.photos__statement p {
-  font-size: clamp(32px, 4.4vw, 72px);
-  font-weight: 700;
-  letter-spacing: -0.045em;
-  line-height: 1.02;
-  text-wrap: balance;
 }
 
 /* ---------- Photo viewer ---------- */
@@ -994,6 +949,10 @@ body.is-loading .header {
   justify-content: space-between;
   align-items: center;
   gap: 16px;
+}
+
+.viewer__foot {
+  justify-content: flex-end;
 }
 
 .viewer__count {
@@ -1254,16 +1213,6 @@ body.is-loading .header {
   /* Staggered two-column masonry feel on phones. */
   .photo:nth-of-type(even) {
     margin-top: 56px;
-  }
-  .photos__statement {
-    grid-column: 1 / -1;
-  }
-  .photo__caption {
-    grid-template-columns: 1fr;
-    font-size: 12px;
-  }
-  .photo__place {
-    text-align: left;
   }
   .section {
     padding-top: 80px;

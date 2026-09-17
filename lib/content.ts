@@ -59,26 +59,24 @@ export const videoclips: Work[] = [
 
 export type Photo = {
   src: string;
-  title: string;
-  place: string;
-  year: string;
-  /** Shown like contact-sheet notes under each frame. */
-  exif: string;
+  /** Natural proportion, so nothing gets cropped in the collage. */
+  ratio: string;
 };
 
-// PLACEHOLDER photography from picsum.photos — waiting for the Drive folders
-// (Gastronomía, Deportes, Eventos). Replace `src` with your own files, e.g.
-// "/images/fotos/gastronomia-01.jpg".
-const picsum = (id: number) => `https://picsum.photos/id/${id}/1400/1750`;
+const P = "3 / 4";
+const L = "4 / 3";
 
 export const photos: Photo[] = [
-  { src: picsum(1027), title: "Retrato en luz natural", place: "Caracas, VE", year: "2024", exif: "85mm · f/1.8 · 1/400" },
-  { src: picsum(1005), title: "Frente al mar", place: "La Guaira, VE", year: "2024", exif: "35mm · f/2.8 · 1/1000" },
-  { src: picsum(1004), title: "Noche en la costa", place: "Choroní, VE", year: "2023", exif: "24mm · f/1.4 · 1/60" },
-  { src: picsum(1011), title: "Travesía", place: "Canaima, VE", year: "2023", exif: "50mm · f/4 · 1/800" },
-  { src: picsum(1003), title: "Silencio", place: "Mérida, VE", year: "2023", exif: "135mm · f/2 · 1/500" },
-  { src: picsum(1026), title: "Vías al atardecer", place: "Valencia, VE", year: "2024", exif: "35mm · f/5.6 · 1/250" },
-  { src: picsum(1035), title: "Caída de agua", place: "Salto Ángel, VE", year: "2022", exif: "16mm · f/8 · 1/30" },
+  { src: "/fotos/foto-01.webp", ratio: P },
+  { src: "/fotos/foto-02.webp", ratio: L },
+  { src: "/fotos/foto-03.webp", ratio: P },
+  { src: "/fotos/foto-04.webp", ratio: P },
+  { src: "/fotos/foto-05.webp", ratio: L },
+  { src: "/fotos/foto-06.webp", ratio: P },
+  { src: "/fotos/foto-07.webp", ratio: L },
+  { src: "/fotos/foto-08.webp", ratio: P },
+  { src: "/fotos/foto-09.webp", ratio: P },
+  { src: "/fotos/foto-10.webp", ratio: P },
 ];
 
 export type SkillColumn = {

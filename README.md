@@ -16,7 +16,7 @@ Todo el contenido está en [`lib/content.ts`](lib/content.ts).
   - `nombre.mp4` — video completo, 720p, se descarga solo al hacer clic.
   - `/public/posters/nombre.webp` — imagen que se ve al instante.
 - **Videos de YouTube**: solo se guarda la portada en `/public/posters`; el video se reproduce en YouTube.
-- **Fotografías**: por ahora son imágenes de prueba (picsum.photos). Faltan las carpetas de Drive.
+- **Fotografías** (`/public/fotos`): WebP de lado largo 2200px, calidad 82, sin textos. Cada foto lleva su proporción en `lib/content.ts` para que no se recorte.
 
 ### Agregar un video propio
 

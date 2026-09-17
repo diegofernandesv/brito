@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
 import { createPortal } from "react-dom";
-import { gsap, revealHeading, ScrollSmoother, SplitText, useGSAP } from "@/lib/gsap";
+import { gsap, revealHeading, ScrollSmoother, useGSAP } from "@/lib/gsap";
 import { photos } from "@/lib/content";
 
 /**
@@ -11,19 +11,19 @@ import { photos } from "@/lib/content";
  * `speed` is its parallax depth (>1 drifts up faster, <1 lags behind).
  */
 const LAYOUT = [
-  { col: "1 / span 5", ratio: "4 / 5", mt: "0px", speed: 0.9 },
-  { col: "7 / span 6", ratio: "3 / 2", mt: "clamp(80px, 22vh, 240px)", speed: 1.15 },
-  { col: "2 / span 4", ratio: "1 / 1", mt: "0px", speed: 1.1 },
-  { col: "7 / span 4", ratio: "4 / 5", mt: "clamp(40px, 12vh, 160px)", speed: 0.92 },
-  { col: "11 / span 2", ratio: "3 / 4", mt: "clamp(120px, 34vh, 380px)", speed: 1.3 },
-  { col: "1 / span 7", ratio: "3 / 2", mt: "clamp(24px, 6vh, 80px)", speed: 1 },
-  { col: "9 / span 4", ratio: "4 / 5", mt: "clamp(60px, 18vh, 200px)", speed: 0.85 },
+  { col: "1 / span 4", mt: "0px", speed: 0.92 },
+  { col: "6 / span 7", mt: "clamp(60px, 18vh, 200px)", speed: 1.12 },
+  { col: "2 / span 3", mt: "clamp(24px, 6vh, 80px)", speed: 1.05 },
+  { col: "6 / span 4", mt: "clamp(90px, 26vh, 300px)", speed: 0.88 },
+  { col: "1 / span 6", mt: "clamp(20px, 4vh, 60px)", speed: 1.08 },
+  { col: "8 / span 4", mt: "clamp(50px, 14vh, 170px)", speed: 0.95 },
+  { col: "2 / span 5", mt: "clamp(36px, 10vh, 120px)", speed: 1.15 },
+  { col: "8 / span 3", mt: "clamp(100px, 30vh, 340px)", speed: 0.9 },
+  { col: "1 / span 4", mt: "0px", speed: 1.1 },
+  { col: "6 / span 4", mt: "clamp(70px, 20vh, 240px)", speed: 0.95 },
 ];
 
-/** The statement line is dropped into the collage after this many photos. */
-const STATEMENT_AFTER = 2;
-
-const pad = (n: number, len = 2) => String(n).padStart(len, "0");
+const pad = (n: number) => String(n).padStart(2, "0");
 
 export default function Photos() {
   const root = useRef<HTMLElement>(null);
@@ -50,11 +50,6 @@ export default function Photos() {
             { opacity: 0 },
             { opacity: 0.9, duration: 0.08, ease: "none", yoyo: true, repeat: 1, repeatDelay: 0.04 },
             "<0.35",
-          )
-          .from(
-            fig.querySelectorAll(".photo__caption > *"),
-            { yPercent: 100, opacity: 0, duration: 0.7, ease: "power3.out", stagger: 0.06 },
-            "-=0.9",
           );
       });
 
@@ -71,53 +66,9 @@ export default function Photos() {
           );
         });
       });
-
-      // Statement words ink in as you scroll past.
-      const split = SplitText.create(".photos__statement p", { type: "words" });
-      gsap.fromTo(
-        split.words,
-        { color: "#d9d9d9" },
-        {
-          color: "#000000",
-          ease: "none",
-          stagger: 0.1,
-          scrollTrigger: { trigger: ".photos__statement", start: "top 80%", end: "bottom 50%", scrub: true },
-        },
-      );
     },
     { scope: root },
   );
-
-  const figures = photos.map((photo, i) => {
-    const slot = LAYOUT[i % LAYOUT.length];
-    return (
-      <figure
-        key={photo.src}
-        className="photo"
-        style={{ "--col": slot.col, "--ratio": slot.ratio, "--mt": slot.mt } as CSSProperties}
-      >
-        <button
-          className="photo__frame"
-          data-cursor="Ampliar"
-          aria-label={`Ampliar ${photo.title}`}
-          onClick={() => setOpen(i)}
-        >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={photo.src} alt={photo.title} loading="lazy" />
-          <span className="photo__flash" aria-hidden="true" />
-        </button>
-        <figcaption className="photo__caption">
-          <span className="photo__title">
-            <b>#{pad(i + 1, 3)}</b> {photo.title}
-          </span>
-          <span className="photo__place">
-            {photo.place} — {photo.year}
-          </span>
-          <span className="photo__exif">{photo.exif}</span>
-        </figcaption>
-      </figure>
-    );
-  });
 
   return (
     <section className="section photos" id="fotografias" ref={root}>
@@ -127,11 +78,22 @@ export default function Photos() {
       </div>
 
       <div className="photos__grid">
-        {figures.slice(0, STATEMENT_AFTER)}
-        <div className="photos__statement">
-          <p>La cámara no inventa nada: solo espera, con paciencia, el instante en que la luz dice la verdad.</p>
-        </div>
-        {figures.slice(STATEMENT_AFTER)}
+        {photos.map((photo, i) => {
+          const slot = LAYOUT[i % LAYOUT.length];
+          return (
+            <figure
+              key={photo.src}
+              className="photo"
+              style={{ "--col": slot.col, "--ratio": photo.ratio, "--mt": slot.mt } as CSSProperties}
+            >
+              <button className="photo__frame" data-cursor="Ampliar" aria-label={`Ampliar fotografía ${i + 1}`} onClick={() => setOpen(i)}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={photo.src} alt="" loading="lazy" />
+                <span className="photo__flash" aria-hidden="true" />
+              </button>
+            </figure>
+          );
+        })}
       </div>
 
       {/* Portal: the smooth-scroll content is transformed, which would break position: fixed. */}
@@ -194,11 +156,6 @@ function PhotoViewer({
         { clipPath: dir ? `inset(0% ${dir < 0 ? 100 : 0}% 0% ${dir > 0 ? 100 : 0}%)` : "inset(8% 8% 8% 8%)", scale: 1.08 },
         { clipPath: "inset(0% 0% 0% 0%)", scale: 1, duration: 1, ease: "expo.inOut" },
       );
-      gsap.fromTo(
-        ".viewer__meta > *",
-        { yPercent: 100, opacity: 0 },
-        { yPercent: 0, opacity: 1, duration: 0.6, stagger: 0.05, delay: 0.3, overwrite: true },
-      );
     },
     { scope: root, dependencies: [index] },
   );
@@ -219,7 +176,7 @@ function PhotoViewer({
       ref={root}
       role="dialog"
       aria-modal="true"
-      aria-label={photo.title}
+      aria-label={`Fotografía ${index + 1} de ${total}`}
       onTouchStart={(e) => (touchX.current = e.touches[0].clientX)}
       onTouchEnd={(e) => {
         if (touchX.current === null) return;
@@ -241,21 +198,10 @@ function PhotoViewer({
 
       <div className="viewer__stage" onClick={close}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          key={photo.src}
-          className="viewer__img"
-          src={photo.src}
-          alt={photo.title}
-        />
+        <img key={photo.src} className="viewer__img" src={photo.src} alt="" />
       </div>
 
       <div className="viewer__foot">
-        <div className="viewer__meta">
-          <p className="card__title">{photo.title}</p>
-          <p className="card__meta">
-            {photo.place} — {photo.year} · {photo.exif}
-          </p>
-        </div>
         <div className="viewer__nav">
           <button className="icon-btn" aria-label="Foto anterior" onClick={() => go(-1)}>
             ←
