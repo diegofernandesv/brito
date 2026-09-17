@@ -1209,18 +1209,18 @@ body.is-loading .header {
     flex-direction: column;
     gap: 0;
   }
+  /* Phones: one photo per row, alternating left and right. */
   .photos__grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    column-gap: 12px;
-    row-gap: 40px;
+    grid-template-columns: 1fr;
+    row-gap: clamp(40px, 8vh, 72px);
   }
   .photo {
     grid-column: auto;
     margin-top: 0;
+    width: 76%;
   }
-  /* Staggered two-column masonry feel on phones. */
   .photo:nth-of-type(even) {
-    margin-top: 56px;
+    margin-left: auto;
   }
   .section {
     padding-top: 80px;
