@@ -31,7 +31,7 @@ export default function Loader({ onReveal }: { onReveal: () => void }) {
 
       // One roller per digit; each strip holds 0–9 stacked vertically.
       const rollers = q(".loader__strip").map((strip) =>
-        gsap.quickTo(strip, "yPercent", { duration: 0.38, ease: "expo.out" }),
+        gsap.quickTo(strip, "yPercent", { duration: 0.22, ease: "expo.out" }),
       );
       const bar = gsap.quickSetter(q(".loader__bar")[0], "scaleX");
 
@@ -62,16 +62,16 @@ export default function Loader({ onReveal }: { onReveal: () => void }) {
       const tl = gsap.timeline();
       tl.to(q(".loader__meta > *, .loader__count"), {
         yPercent: 0,
-        duration: 0.9,
+        duration: 0.55,
         ease: "power4.out",
-        stagger: 0.06,
+        stagger: 0.04,
       });
 
       // The count climbs in uneven chunks so every digit gets one clean roll
       // per step; the frame and progress bar follow each step smoothly.
-      const steps = reduced ? [100] : [8, 23, 37, 49, 64, 78, 91, 100];
-      const stepDuration = reduced ? 0.4 : 0.3;
-      const stepGap = reduced ? 0 : 0.08;
+      const steps = reduced ? [100] : [17, 41, 68, 89, 100];
+      const stepDuration = reduced ? 0.25 : 0.16;
+      const stepGap = reduced ? 0 : 0.03;
       tl.addLabel("count", "<0.15");
       steps.forEach((value, i) => {
         tl.to(
@@ -93,16 +93,16 @@ export default function Loader({ onReveal }: { onReveal: () => void }) {
           imageReady.then(() => tl.play());
         })
         // Let the last digit settle on 100 before leaving.
-        .to({}, { duration: 0.35 });
+        .to({}, { duration: 0.18 });
 
       tl.to(q(".loader__count, .loader__meta > *"), {
         yPercent: -230,
-        duration: 0.7,
+        duration: 0.45,
         ease: "power3.in",
-        stagger: 0.03,
+        stagger: 0.02,
       }).to(
         q(".loader__bar"),
-        { transformOrigin: "100% 50%", scaleX: 0, duration: 0.7, ease: "power3.inOut" },
+        { transformOrigin: "100% 50%", scaleX: 0, duration: 0.45, ease: "power3.inOut" },
         "<",
       );
 
@@ -123,13 +123,13 @@ export default function Loader({ onReveal }: { onReveal: () => void }) {
             y: r.top - f.top,
             width: r.width,
             height: r.height,
-            duration: reduced ? 0.01 : 1.3,
+            duration: reduced ? 0.01 : 0.9,
             ease: "expo.inOut",
           })
-          .to(q(".loader__bg"), { opacity: 0, duration: 0.9, ease: "power2.inOut" }, "-=0.9")
-          .add(onReveal, "-=0.45")
+          .to(q(".loader__bg"), { opacity: 0, duration: 0.6, ease: "power2.inOut" }, "-=0.6")
+          .add(onReveal, "-=0.35")
           // Let the real hero sit underneath before removing the frame.
-          .to(frame, { opacity: 0, duration: 0.4 }, "+=0.4");
+          .to(frame, { opacity: 0, duration: 0.3 }, "+=0.25");
       });
     },
     { scope: root },
