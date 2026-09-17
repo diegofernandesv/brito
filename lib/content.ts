@@ -63,21 +63,32 @@ export type Photo = {
   ratio: string;
 };
 
+export type PhotoCategory = {
+  title: string;
+  photos: Photo[];
+};
+
 const P = "3 / 4";
 const L = "4 / 3";
+const foto = (n: number, ratio = P): Photo => ({ src: `/fotos/foto-${String(n).padStart(2, "0")}.webp`, ratio });
 
-export const photos: Photo[] = [
-  { src: "/fotos/foto-01.webp", ratio: P },
-  { src: "/fotos/foto-02.webp", ratio: L },
-  { src: "/fotos/foto-03.webp", ratio: P },
-  { src: "/fotos/foto-04.webp", ratio: P },
-  { src: "/fotos/foto-05.webp", ratio: L },
-  { src: "/fotos/foto-06.webp", ratio: P },
-  { src: "/fotos/foto-07.webp", ratio: L },
-  { src: "/fotos/foto-08.webp", ratio: P },
-  { src: "/fotos/foto-09.webp", ratio: P },
-  { src: "/fotos/foto-10.webp", ratio: P },
+export const photoCategories: PhotoCategory[] = [
+  {
+    title: "Eventos",
+    photos: [foto(11), foto(13), foto(14), foto(12), foto(15)],
+  },
+  {
+    title: "Gastronomía",
+    photos: [foto(4), foto(2, L), foto(9), foto(7, L), foto(5, L)],
+  },
+  {
+    title: "Deportes",
+    photos: [foto(1), foto(8), foto(3), foto(10), foto(6)],
+  },
 ];
+
+/** Flat list in display order, used by the full-screen viewer. */
+export const photos: Photo[] = photoCategories.flatMap((c) => c.photos);
 
 export type SkillColumn = {
   title: string;

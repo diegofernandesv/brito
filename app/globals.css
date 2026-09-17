@@ -850,6 +850,19 @@ body.is-loading .header {
 
 /* ---------- Fotografías: editorial collage ---------- */
 
+.photos__group + .photos__group {
+  margin-top: clamp(72px, 12vh, 150px);
+}
+
+.photos__label {
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #777;
+}
+
 .photos__grid {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));

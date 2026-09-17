@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
 import { createPortal } from "react-dom";
 import { gsap, revealHeading, ScrollSmoother, useGSAP } from "@/lib/gsap";
-import { photos } from "@/lib/content";
+import { photoCategories, photos } from "@/lib/content";
 
 /**
  * Editorial collage slots, reused in order if more photos are added.
@@ -70,6 +70,8 @@ export default function Photos() {
     { scope: root },
   );
 
+  let running = -1;
+
   return (
     <section className="section photos" id="fotografias" ref={root}>
       <div className="section__head">
@@ -77,24 +79,36 @@ export default function Photos() {
         <span className="section__count">({pad(photos.length)})</span>
       </div>
 
-      <div className="photos__grid">
-        {photos.map((photo, i) => {
-          const slot = LAYOUT[i % LAYOUT.length];
-          return (
-            <figure
-              key={photo.src}
-              className="photo"
-              style={{ "--col": slot.col, "--ratio": photo.ratio, "--mt": slot.mt } as CSSProperties}
-            >
-              <button className="photo__frame" data-cursor="Ampliar" aria-label={`Ampliar fotografía ${i + 1}`} onClick={() => setOpen(i)}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={photo.src} alt="" loading="lazy" />
-                <span className="photo__flash" aria-hidden="true" />
-              </button>
-            </figure>
-          );
-        })}
-      </div>
+      {photoCategories.map((category) => (
+        <div className="photos__group" key={category.title}>
+          <p className="photos__label">{category.title}</p>
+          <div className="photos__grid">
+            {category.photos.map((photo, i) => {
+              const slot = LAYOUT[i % LAYOUT.length];
+              running += 1;
+              const index = running;
+              return (
+                <figure
+                  key={photo.src}
+                  className="photo"
+                  style={{ "--col": slot.col, "--ratio": photo.ratio, "--mt": slot.mt } as CSSProperties}
+                >
+                  <button
+                    className="photo__frame"
+                    data-cursor="Ampliar"
+                    aria-label={`Ampliar fotografía de ${category.title}`}
+                    onClick={() => setOpen(index)}
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={photo.src} alt="" loading="lazy" />
+                    <span className="photo__flash" aria-hidden="true" />
+                  </button>
+                </figure>
+              );
+            })}
+          </div>
+        </div>
+      ))}
 
       {/* Portal: the smooth-scroll content is transformed, which would break position: fixed. */}
       {open !== null &&
