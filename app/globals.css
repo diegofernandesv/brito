@@ -818,8 +818,8 @@ body.is-loading .header {
   aspect-ratio: var(--ratio);
 }
 
-/* Campaigns: three vertical pieces filling the full content width, overlapping
-   in a diagonal, with the wide documentary flush underneath. */
+/* Campaigns: three vertical pieces filling the full content width, aligned at
+   the top and overlapping sideways, with the wide documentary flush below. */
 @media (min-width: 901px) {
   #campanas .grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -842,20 +842,20 @@ body.is-loading .header {
   #campanas .card:nth-child(2) {
     grid-column: 2;
     grid-row: 1;
-    margin: clamp(90px, 18vh, 220px) 0 0 -56px;
+    margin-left: -56px;
     z-index: 2;
   }
   #campanas .card:nth-child(3) {
     grid-column: 3;
     grid-row: 1;
-    margin: clamp(36px, 8vh, 110px) 0 0 -56px;
+    margin-left: -56px;
     z-index: 1;
   }
   /* Full-bleed within the page margins, tucked up under the verticals. */
   #campanas .card:nth-child(4) {
     grid-column: 1 / -1;
     grid-row: 2;
-    margin-top: clamp(-180px, -14vh, -80px);
+    margin-top: clamp(24px, 5vh, 56px);
     z-index: 4;
   }
 }
