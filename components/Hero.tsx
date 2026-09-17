@@ -10,7 +10,7 @@ export default function Hero({ ready }: { ready: boolean }) {
   // drift 8% without ever exposing the edge of the frame.
   useGSAP(
     () => {
-      gsap.to(".hero__media img", {
+      gsap.to(".hero__media video", {
         yPercent: 8,
         ease: "none",
         scrollTrigger: { trigger: ".hero__media", start: "top top", end: "bottom top", scrub: true },
@@ -44,8 +44,16 @@ export default function Hero({ ready }: { ready: boolean }) {
   return (
     <section className="hero" ref={root} id="top">
       <div className="hero__media">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/images/hero.jpg" alt="Gabriel Brito en Pompeya" />
+        <video
+          src="/videos/hero.mp4"
+          poster="/images/hero-poster.webp"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          aria-label="Reel de Gabriel Brito grabado en el Panteón de Roma"
+        />
       </div>
 
       <div className="hero__intro">

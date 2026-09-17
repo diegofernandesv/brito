@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import { gsap, useGSAP } from "@/lib/gsap";
 
-const HERO_SRC = "/images/hero.jpg";
+const HERO_SRC = "/images/hero-poster.webp";
 const DIGITS = Array.from({ length: 10 }, (_, i) => i);
 
 function preload(src: string) {
