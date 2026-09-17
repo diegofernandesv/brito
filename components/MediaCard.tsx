@@ -59,7 +59,7 @@ export default function MediaCard({ work, caption, className = "" }: Props) {
         <div className="card__inner">
           {work.poster && (
             // eslint-disable-next-line @next/next/no-img-element
-            <img className="card__poster" src={work.poster} alt="" loading="lazy" />
+            <img className="card__poster" src={work.poster} alt={work.title} loading="lazy" />
           )}
           {work.preview && (
             <video

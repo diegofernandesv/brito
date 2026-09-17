@@ -99,7 +99,7 @@ export default function Photos() {
                     onClick={() => setOpen(index)}
                   >
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={photo.src} alt="" loading="lazy" />
+                    <img src={photo.src} alt={`Fotografía de ${category.title.toLowerCase()} por Gabriel Brito`} loading="lazy" />
                     <span className="photo__flash" aria-hidden="true" />
                   </button>
                 </figure>
